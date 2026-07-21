@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wekey × [Marque] — Offre IA souveraine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ============ CHARTE WEKEY (hex & police à confirmer, ajustables ici) ============ */
+  :root{
+    --yellow:#F5B531; --yellow-deep:#E39F16;
+    --butter:#FBE18A; --butter-lt:#FDEEBF;
+    --ink:#2E3842; --ink-soft:#586470;
+    --paper:#FFFFFF; --paper-2:#FBF9F4;
+    --line:#EAE6DC; --grey:#9AA1A9; --grey-bg:#EEECE5;
+    --maxw:1140px; --gutter:clamp(18px,5vw,60px); --r:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:96px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+  h1,h2,h3,h4{font-family:"Poppins",sans-serif;font-weight:700;line-height:1.08;letter-spacing:-.015em;color:var(--ink)}
+  a{color:inherit}
+  .eyebrow{font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow-deep)}
+
+  body.no-prices .priceable{visibility:hidden}
+  .p-lbl{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft)}
+  .p-val{font-weight:800;font-size:18px;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.1}
+  .p-val small{font-size:12px;font-weight:600;color:var(--ink-soft)}
+
+  .btn{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;font-weight:700;font-size:14.5px;padding:14px 24px;border-radius:999px;text-decoration:none;border:none;cursor:pointer;transition:.18s}
+  .btn:hover{background:var(--yellow);color:var(--ink)}
+  .btn--ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn--ghost:hover{background:var(--ink);color:#fff}
+
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar__in{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px}
+  .logo{font-family:"Poppins";font-weight:800;font-size:23px;letter-spacing:-.03em}
+  .logo .we{color:var(--yellow)} .logo .key{color:var(--ink)}
+  .logo .x{color:var(--ink-soft);font-weight:600;font-size:15px;margin:0 6px}
+  .logo .pv{color:var(--ink)}
+  .nav{display:flex;align-items:center;gap:20px}
+  .nav a{font-size:13.5px;font-weight:600;color:var(--ink-soft);text-decoration:none}
+  .nav a:hover{color:var(--ink)}
+  .toggle{font-size:12px;font-weight:700;background:var(--butter);border:1.5px solid var(--yellow);color:var(--ink);padding:8px 14px;border-radius:999px;cursor:pointer;transition:.18s}
+  .toggle[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  @media(max-width:820px){.nav a{display:none}}
+
+  .hero{padding:clamp(46px,7vw,92px) 0 clamp(34px,5vw,60px)}
+  .hero__grid{display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center}
+  .hero .eyebrow{display:inline-block;margin-bottom:20px}
+  .hero h1{font-size:clamp(34px,6vw,66px);font-weight:800;max-width:16ch}
+  .hero h1 .hl{background:linear-gradient(180deg,transparent 62%,var(--butter) 62%);padding:0 .06em}
+  .hero__lede{margin-top:22px;font-size:clamp(16px,1.9vw,20px);color:var(--ink-soft);max-width:52ch}
+  .hero__lede b{color:var(--ink);font-weight:700}
+  .hero__cta{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+  .keycard{position:relative;background:var(--butter);border-radius:var(--r);padding:28px 26px;box-shadow:9px 9px 0 var(--yellow)}
+  .keycard h4{font-size:15px;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+  .keystep{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px dashed rgba(46,56,66,.22);font-size:14px;font-weight:600}
+  .keystep:last-child{border-bottom:none}
+  .keystep .n{flex:0 0 26px;height:26px;border-radius:8px;background:var(--ink);color:var(--butter);display:grid;place-items:center;font-size:12px;font-weight:800;font-family:"Poppins"}
+  .keystep .n.alt{background:#fff;color:var(--ink);border:1.5px solid var(--ink)}
+  @media(max-width:860px){.hero__grid{grid-template-columns:1fr;gap:34px}.keycard{box-shadow:7px 7px 0 var(--yellow)}}
+
+  section{padding:clamp(50px,7vw,92px) 0}
+  .band{background:var(--paper-2)}
+  .sec-head{margin-bottom:clamp(28px,4vw,48px);max-width:64ch}
+  .sec-head .eyebrow{display:block;margin-bottom:14px}
+  .sec-head h2{font-size:clamp(26px,4vw,44px);font-weight:800}
+  .sec-head p{margin-top:14px;color:var(--ink-soft);font-size:16px}
+  .sec-head p b{color:var(--ink)}
+
+  .probs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .prob{background:var(--butter);border-radius:var(--r);padding:26px 24px}
+  .prob .ic{width:44px;height:44px;border-radius:12px;background:var(--ink);color:var(--butter);display:grid;place-items:center;font-family:"Poppins";font-weight:800;font-size:22px;margin-bottom:14px}
+  .prob h4{font-size:17px;margin-bottom:8px}
+  .prob p{font-size:14px;color:var(--ink-soft)}
+  @media(max-width:760px){.probs{grid-template-columns:1fr}}
+
+  /* configurateur */
+  .cfg-controls{display:flex;flex-wrap:wrap;gap:26px;background:var(--butter);border-radius:var(--r);padding:22px 24px;margin-bottom:12px}
+  .ctrl{display:flex;flex-direction:column;gap:9px}
+  .ctrl > span{font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+  .seg{display:inline-flex;background:#fff;border-radius:999px;padding:4px;gap:2px;border:1.5px solid rgba(46,56,66,.14)}
+  .seg button{border:none;background:none;font-family:"Inter";font-weight:700;font-size:13.5px;color:var(--ink-soft);padding:8px 15px;border-radius:999px;cursor:pointer;transition:.15s;white-space:nowrap}
+  .seg button.on{background:var(--ink);color:#fff}
+  .cfg-hint{font-size:13px;color:var(--ink-soft);margin:2px 2px 22px;display:flex;gap:8px;align-items:flex-start}
+  .cfg-hint b{color:var(--ink)}
+
+  .audit-lead{display:flex;gap:18px;align-items:center;background:var(--ink);color:#fff;border-radius:var(--r);padding:22px 26px;margin-bottom:8px;flex-wrap:wrap}
+  .audit-lead .kk{flex:0 0 46px;height:46px;border-radius:12px;background:var(--yellow);color:var(--ink);display:grid;place-items:center}
+  .audit-lead h3{color:#fff;font-size:19px}
+  .audit-lead p{color:#D7DBDF;font-size:13.5px;margin-top:3px}
+  .audit-lead .price-tag{margin-left:auto;text-align:right}
+  .audit-lead .p-lbl{color:#AEB4BA}
+  .audit-lead .p-val{color:var(--yellow)}
+  @media(max-width:640px){.audit-lead .price-tag{margin-left:0;text-align:left;width:100%}}
+
+  .grid-mods{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  @media(max-width:800px){.grid-mods{grid-template-columns:1fr}}
+  .phase{grid-column:1/-1;display:flex;align-items:center;gap:14px;margin-top:18px}
+  .phase:first-child{margin-top:8px}
+  .phase .ph-n{font-family:"Poppins";font-weight:800;font-size:12px;background:var(--yellow);color:var(--ink);padding:4px 12px;border-radius:999px;letter-spacing:.06em;white-space:nowrap}
+  .phase .ph-n.fil{background:var(--ink);color:var(--butter)}
+  .phase h3{font-size:16px}
+  .phase small{font-size:12px;color:var(--ink-soft);font-weight:600}
+  .phase .ph-line{flex:1;height:1.5px;background:var(--line)}
+
+  .mod{position:relative;background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:22px 22px 20px;cursor:pointer;transition:.18s;display:flex;flex-direction:column}
+  .mod:hover{border-color:var(--yellow)}
+  .mod.on{border-color:var(--ink);box-shadow:7px 7px 0 var(--yellow)}
+  .mod.dim{opacity:.72}
+  .mod__top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .mod__code{font-family:"Poppins";font-weight:800;font-size:12px;color:var(--ink);background:var(--butter);padding:3px 9px;border-radius:7px}
+  .mod__name{font-family:"Poppins";font-weight:700;font-size:16.5px;flex:1;letter-spacing:-.01em}
+  .badge{font-size:10.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:4px 9px;border-radius:999px;white-space:nowrap}
+  .badge--reco{background:var(--yellow);color:var(--ink)}
+  .badge--opt{background:#fff;color:var(--ink);border:1.5px solid var(--ink)}
+  .badge--low{background:var(--grey-bg);color:var(--grey)}
+  .mod__desc{font-size:13.5px;color:var(--ink);font-weight:500}
+  .mod__why{margin-top:10px;font-size:12.5px;color:var(--ink-soft);background:var(--paper-2);border-radius:10px;padding:9px 11px;line-height:1.45}
+  .mod__why b{color:var(--ink)}
+  .mod__dep{margin-top:8px;font-size:11.5px;font-weight:700;color:var(--yellow-deep)}
+  .levers{margin-top:10px;display:flex;flex-wrap:wrap;gap:6px}
+  .lever{font-size:11px;font-weight:700;padding:4px 9px;border-radius:7px;background:var(--butter-lt);color:var(--ink)}
+  .lever.off{background:var(--grey-bg);color:var(--grey);text-decoration:line-through}
+  .mod__foot{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-end;gap:14px}
+  .mod__prices{display:flex;gap:22px}
+  .pcol{display:flex;flex-direction:column;gap:3px}
+  .pcol .p-val.run{color:var(--yellow-deep)}
+  .pick{flex:0 0 auto;width:30px;height:30px;border-radius:9px;border:2px solid var(--line);display:grid;place-items:center;transition:.15s;background:#fff}
+  .mod.on .pick{background:var(--ink);border-color:var(--ink)}
+  .pick svg{width:16px;height:16px;stroke:#fff;stroke-width:3;fill:none;opacity:0}
+  .mod.on .pick svg{opacity:1}
+
+  .gpu-note{margin-top:16px;font-size:13px;color:var(--ink);background:var(--butter);border-radius:12px;padding:13px 16px;display:none}
+  .gpu-note.show{display:block}
+  .gpu-note b{font-weight:800}
+
+  .summary{position:fixed;left:0;right:0;bottom:0;z-index:55;background:var(--ink);color:#fff;box-shadow:0 -8px 30px -12px rgba(0,0,0,.4)}
+  .summary__in{max-width:var(--maxw);margin:0 auto;padding:14px var(--gutter);display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+  .summary__path{flex:1;min-width:180px;font-size:12.5px;color:#C9CDD2;line-height:1.4}
+  .summary__path b{color:#fff;font-weight:700}
+  .summary__tot{display:flex;gap:26px}
+  .stot .l{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#AEB4BA}
+  .stot .v{font-family:"Poppins";font-weight:800;font-size:21px;color:var(--yellow);font-variant-numeric:tabular-nums;line-height:1.1}
+  .stot .v .plus{font-size:12px;color:#C9CDD2;font-family:"Inter";font-weight:600}
+  @media(max-width:600px){.summary__tot{gap:18px}.stot .v{font-size:18px}}
+
+  .dd{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .ddc{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:26px 24px;display:flex;flex-direction:column}
+  .ddc .tg{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--yellow-deep)}
+  .ddc h3{font-size:19px;margin:9px 0 11px}
+  .ddc p{font-size:13.5px;color:var(--ink-soft)}
+  .ddc p b{color:var(--ink)}
+  .calc{margin-top:15px;background:var(--butter);border-radius:12px;padding:15px 16px;font-size:13px;line-height:1.75}
+  .calc .row{display:flex;justify-content:space-between;gap:12px}
+  .calc .row b{font-weight:800}
+  .calc .hr{height:1px;background:rgba(46,56,66,.2);margin:7px 0}
+  @media(max-width:900px){.dd{grid-template-columns:1fr}}
+
+  .roi{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:start}
+  .tbl{width:100%;border-collapse:collapse;font-size:14.5px;background:#fff;border:1.5px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .tbl th,.tbl td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .tbl th{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);background:var(--paper-2)}
+  .tbl td.n{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tr.win td{background:var(--butter)}
+  .roi__note{font-size:12.5px;color:var(--ink-soft);margin-top:12px;line-height:1.5}
+  .roi__note b{color:var(--ink)}
+  .levbox{background:var(--ink);color:#fff;border-radius:var(--r);padding:24px 24px}
+  .levbox h4{color:#fff;font-size:16px;margin-bottom:6px}
+  .levbox p{color:#C9CDD2;font-size:13px;margin-bottom:12px}
+  .levrow{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.16);font-size:13.5px;font-weight:600}
+  .levrow:last-child{border-bottom:none}
+  .levrow b{color:var(--yellow);font-weight:800}
+  @media(max-width:860px){.roi{grid-template-columns:1fr}}
+
+  /* catalogue formation */
+  .cat{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .catc{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:18px 18px}
+  .catc .ct{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+  .catc h4{font-size:15px}
+  .catc .dur{font-size:11.5px;font-weight:800;color:var(--yellow-deep);white-space:nowrap}
+  .catc .aud{font-size:11.5px;font-weight:700;color:var(--ink-soft);margin-top:2px}
+  .catc p{font-size:12.5px;color:var(--ink-soft);margin-top:7px;line-height:1.45}
+  .catc.core{background:var(--butter);border-color:var(--yellow)}
+  @media(max-width:760px){.cat{grid-template-columns:1fr}}
+
+  .cab{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .cabc{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:26px 26px}
+  .cabc.feat{background:var(--butter);border-color:var(--yellow)}
+  .cabc h3{font-size:18px;margin-bottom:6px;display:flex;align-items:center;gap:9px}
+  .cabc .pin{font-size:10.5px;font-weight:800;color:var(--ink);background:var(--yellow);padding:3px 9px;border-radius:6px;letter-spacing:.04em}
+  .cabc p{font-size:13.5px;color:var(--ink-soft)}
+  .cabc .rows{margin-top:14px}
+  .cr{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid rgba(46,56,66,.12);font-size:14px}
+  .cabc:not(.feat) .cr{border-bottom-color:var(--line)}
+  .cr:last-child{border-bottom:none}
+  .cr .v{font-weight:800;text-align:right}
+  .geo{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:16px}
+  .gc{background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:16px 14px}
+  .gc .c{font-family:"Poppins";font-weight:800;font-size:16px}
+  .gc .s{font-size:11px;font-weight:700;color:var(--yellow-deep);margin-top:3px}
+  .gc p{font-size:11.5px;color:var(--ink-soft);margin-top:6px;line-height:1.35}
+  @media(max-width:900px){.cab{grid-template-columns:1fr}.geo{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.geo{grid-template-columns:1fr}}
+
+  .grille{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border:1.5px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .grille th,.grille td{text-align:left;padding:13px 15px;border-bottom:1px solid var(--line)}
+  .grille th{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);background:var(--paper-2)}
+  .grille td .sub{display:block;font-size:11.5px;color:var(--ink-soft);margin-top:2px}
+  .grille td .sub.r{color:var(--yellow-deep);font-weight:800;text-align:right}
+  .grille td.s,.grille td.r{text-align:right;font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .grille td.r{color:var(--yellow-deep)}
+  .grille tr.ph td{background:var(--paper-2);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);padding:8px 15px}
+  .grille tr:last-child td{border-bottom:none}
+  .grille-scroll{overflow-x:auto}
+  @media(max-width:640px){.grille th,.grille td{padding:10px 10px;font-size:12.5px}}
+
+  .cta{text-align:center}
+  .cta h2{font-size:clamp(28px,4.5vw,50px);font-weight:800;max-width:18ch;margin:0 auto 16px}
+  .cta p{color:var(--ink-soft);max-width:52ch;margin:0 auto 26px;font-size:16px}
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-soft);font-size:12.5px}
+  .foot__in{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+  .foot__in p{max-width:62ch;line-height:1.6}
+
+  .rv{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+  .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar__in">
+    <div class="logo"><span class="we">We</span><span class="key">key</span><span class="x">×</span><span class="pv">[Marque]</span></div>
+    <nav class="nav">
+      <a href="#parcours">Parcours</a>
+      <a href="#formation">Formations</a>
+      <a href="decryptage-ai-act.html" style="color:var(--yellow-deep);font-weight:700">AI Act ↗</a>
+      <a href="finops-ia.html" style="color:var(--yellow-deep);font-weight:700">FinOps ↗</a>
+      <a href="#chiffrage">Chiffrage</a>
+      <a href="#cabinet">Modèle cabinet</a>
+      <a href="#grille">Grille</a>
+      <button class="toggle" id="priceToggle" aria-pressed="false">Masquer les prix</button>
+    </nav>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero__grid">
+    <div class="rv">
+      <span class="eyebrow">Filière Data &amp; IA · offre souveraine</span>
+      <h1>L'IA d'entreprise, <span class="hl">sous contrôle.</span></h1>
+      <p class="hero__lede">Une offre modulaire, souveraine et conforme RGPD / AI&nbsp;Act pour les grands comptes et PME de l'Ouest. <b>L'audit est la clé</b> : il mesure la réalité — usages, licences, coûts, shadow IA — et ouvre, chiffrés, les modules qui comptent.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#parcours">Construire un parcours →</a>
+        <a class="btn btn--ghost" href="#cabinet">Le modèle cabinet</a>
+      </div>
+    </div>
+    <div class="rv keycard">
+      <h4>🔑 &nbsp;Le principe</h4>
+      <div class="keystep"><span class="n">A</span> Audit — la clé qui ouvre tout</div>
+      <div class="keystep"><span class="n alt">↓</span> Une roadmap chiffrée, module par module</div>
+      <div class="keystep"><span class="n alt">✓</span> Vous n'activez que ce qui a du sens</div>
+      <div class="keystep"><span class="n alt">→</span> Chaque étape éclaire et prépare la suivante</div>
+    </div>
+  </div>
+</header>
+
+<!-- CONSTAT -->
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Le constat</span>
+      <h2>Les entreprises paient l'IA sans la piloter.</h2>
+      <p>Trois angles morts que l'audit révèle — et que chaque module vient corriger.</p>
+    </div>
+    <div class="probs rv">
+      <div class="prob"><div class="ic">×</div><h4>Licences qui s'empilent</h4><p>Des abonnements IA achetés siège par siège, souvent sous-utilisés. Personne ne sait ce qui est vraiment consommé.</p></div>
+      <div class="prob"><div class="ic">?</div><h4>Shadow IT &amp; shadow IA</h4><p>Comptes personnels, données sensibles collées dans des outils publics, aucun log. Un risque RGPD invisible tant qu'il n'est pas cartographié.</p></div>
+      <div class="prob"><div class="ic">§</div><h4>Conformité qui arrive</h4><p>La littératie IA est obligatoire depuis fév. 2025 (art. 4) ; sanctions et transparence s'activent en août 2026 ; le haut risque suit en déc. 2027. <a href="decryptage-ai-act.html" style="font-weight:700;color:var(--yellow-deep)">Notre décryptage AI Act ↗</a></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIGURATEUR -->
+<section id="parcours">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Le parcours · à la carte</span>
+      <h2>Un parcours en phases. Des modules qui s'enchaînent.</h2>
+      <p><b>Audit → Formation</b>, puis <b>pilotage</b> (FinOps + gouvernance, en parallèle), puis <b>déploiement</b> au choix selon l'audit — en séquence ou en simultané, à définir ensemble. Trois chantiers de transformation courent <b>en fil rouge</b>, sur devis.</p>
+    </div>
+
+    <div class="cfg-controls rv">
+      <div class="ctrl">
+        <span>Taille de l'entreprise</span>
+        <div class="seg" id="segSize">
+          <button data-size="pme">PME</button>
+          <button data-size="eti" class="on">ETI</button>
+          <button data-size="gc">Grand compte</button>
+        </div>
+      </div>
+      <div class="ctrl">
+        <span>Où tournent les modèles ?</span>
+        <div class="seg" id="segFork">
+          <button data-fork="proprietaire" class="on">API propriétaire</button>
+          <button data-fork="souverain">Local souverain</button>
+          <button data-fork="hybride">Hybride</button>
+        </div>
+      </div>
+    </div>
+    <div class="cfg-hint rv"><span>💡</span><span id="forkHint"></span></div>
+
+    <div class="audit-lead rv">
+      <div class="kk">🔑</div>
+      <div>
+        <h3>Audit IA 360° — le point de départ</h3>
+        <p>Maturité · cartographie outils &amp; shadow IA · <b style="color:#fff">coût IA actuel reconstitué</b> (licences + factures) · risques RGPD-AI Act → roadmap chiffrée. Toujours inclus.</p>
+      </div>
+      <div class="price-tag priceable"><div class="p-lbl">Forfait</div><div class="p-val" id="auditPrice">7 500 €</div></div>
+    </div>
+
+    <div class="grid-mods rv" id="mods"></div>
+
+    <div class="gpu-note" id="gpuNote"><b>+ Box IA</b> : machine d'inférence basse consommation (~65–120 W), <b>ma propriété</b>, installée dans les locaux du client, louée service inclus — deux tailles selon les modèles visés (64 ou 128 Go). Colocation datacenter envisageable dans un second temps si les locaux ne s'y prêtent pas. Le client n'immobilise aucun capital. Loyer facturé à part (voir notes de chiffrage).</div>
+  </div>
+</section>
+
+<!-- CATALOGUE FORMATION -->
+<section id="formation" class="band">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Phase 1 · catalogue de formation</span>
+      <h2>Former, du COMEX aux équipes.</h2>
+      <p>Sessions intra d'une demi-journée à deux jours. <b>Catalogue à construire ensemble selon l'audit</b> — ce qui suit est un exemple de structure et de tarifs, pas une offre figée. La session « AI Literacy » répond à l'obligation de formation de l'<b>AI Act (art. 4)</b> : programme documenté, émargement, attestation de suivi — <b>sans certification Qualiopi</b> à ce stade, donc non finançable OPCO/CPF en direct. <span class="priceable">Exemple : <b>1 500–2 400 € / jour</b> selon niveau, dégressif en volume.</span></p>
+    </div>
+    <div class="cat rv">
+      <div class="catc core">
+        <div class="ct"><h4>AI Literacy — socle réglementaire</h4><span class="dur">0,5–1 j</span></div>
+        <div class="aud">Tous collaborateurs</div>
+        <p>Comprendre l'IA générative, ses limites, les risques (données, biais, hallucinations), les bons réflexes. Répond à l'obligation AI Act art. 4 — attestation nominative.</p>
+      </div>
+      <div class="catc">
+        <div class="ct"><h4>IA pour dirigeants &amp; COMEX</h4><span class="dur">0,5 j</span></div>
+        <div class="aud">Direction, managers</div>
+        <p>Enjeux stratégiques, gouvernance, ROI, souveraineté. Lire une roadmap IA, arbitrer les investissements, poser le cadre.</p>
+      </div>
+      <div class="catc">
+        <div class="ct"><h4>Usages métier &amp; prompting</h4><span class="dur">1 j</span></div>
+        <div class="aud">Praticiens, par métier</div>
+        <p>Atelier sur les cas d'usage réels de l'équipe (juridique, RH, finance, relation client…). Techniques de prompt, vérification, intégration au quotidien.</p>
+      </div>
+      <div class="catc">
+        <div class="ct"><h4>Données, RGPD &amp; AI Act appliqués</h4><span class="dur">1 j</span></div>
+        <div class="aud">DPO, juridique, DSI</div>
+        <p>Classification des cas d'usage, registre, analyse de risque, clauses contractuelles avec les fournisseurs IA. Spécial secteurs régulés.</p>
+      </div>
+      <div class="catc">
+        <div class="ct"><h4>IA pour développeurs</h4><span class="dur">1–2 j</span></div>
+        <div class="aud">DSI, équipes dev</div>
+        <p>Assistants de code, revue assistée, tests, documentation. Bonnes pratiques d'intégration dans la chaîne de développement, sans fuite de code propriétaire.</p>
+      </div>
+      <div class="catc">
+        <div class="ct"><h4>Agents &amp; automatisation</h4><span class="dur">1–2 j</span></div>
+        <div class="aud">Experts, champions IA</div>
+        <p>Concevoir des flux agentiques fiables : orchestration, garde-fous, supervision humaine. Prépare le chantier Agents du fil rouge.</p>
+      </div>
+      <div class="catc">
+        <div class="ct"><h4>Piloter les coûts de l'IA</h4><span class="dur">0,5 j</span></div>
+        <div class="aud">DSI, achats, finance</div>
+        <p>Modèles de coûts (licences vs consommation vs local), leviers d'optimisation, indicateurs de suivi. Prépare le module FinOps.</p>
+      </div>
+      <div class="catc">
+        <div class="ct"><h4>Référents IA — formation de formateurs</h4><span class="dur">1 j</span></div>
+        <div class="aud">Ambassadeurs internes</div>
+        <p>Outiller un réseau de référents capables d'accompagner leurs équipes au quotidien et de faire vivre la charte IA. Démultiplie sans multiplier les jours de conseil.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTES DE CHIFFRAGE -->
+<section id="chiffrage">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">En notes de chiffrage</span>
+      <h2>Quelques questions.</h2>
+    </div>
+    <div class="dd rv">
+      <div class="ddc">
+        <span class="tg">Souverain · trois façons de faire</span>
+        <h3>API européenne, on-prem cloud, ou local.</h3>
+        <p>Trois niveaux de souveraineté, du plus simple au plus intégré :</p>
+        <div class="calc" style="background:var(--paper-2);border:1.5px solid var(--line)">
+          <div class="row"><span><b>1 · API souveraine (ex. Mistral)</b></span><span></span></div>
+          <div class="row" style="font-size:12.5px"><span>Les appels passent par un fournisseur européen — données hébergées et traitées dans l'UE, hors juridiction extraterritoriale. Aucune infra à gérer : le client paie sa consommation à Mistral, je ne facture que le setup et le run. Le premier pas souverain, sans friction.</span></div>
+          <div class="hr"></div>
+          <div class="row"><span><b>2 · On-prem cloud</b></span><span></span></div>
+          <div class="row" style="font-size:12.5px"><span>Le client loue lui-même un serveur/instance GPU chez un hébergeur souverain (OVH, Scaleway) et le paie en direct ; on y déploie des modèles open weight. Je ne facture que <b>le setup et le run</b> (le service), jamais l'infra.</span></div>
+          <div class="hr"></div>
+          <div class="row"><span><b>3 · Local (Box IA)</b></span><span></span></div>
+          <div class="row" style="font-size:12.5px"><span>Machine physique, ma propriété, <b>posée dans les locaux du client</b> — c'est sa raison d'être : la donnée ne quitte jamais les murs. Un loyer tout compris (matériel + service), aucun capital ni facture d'hébergeur côté client. Colocation datacenter possible dans un second temps ; à ce stade, l'on-prem cloud est souvent plus simple.</span></div>
+        </div>
+        <p style="margin-top:11px;font-size:11.5px">Les trois gardent la donnée hors des API non européennes. Facturation : API souveraine et on-prem cloud = infra/conso payée en direct par le client + mon service ; local = une seule facture, la mienne.</p>
+      </div>
+      <div class="ddc">
+        <span class="tg">Plateforme · le run</span>
+        <h3>Combien pour le récurrent ?</h3>
+        <p>Le run couvre le maintien en condition : mises à jour &amp; sécurité, monitoring des coûts, ajustement du routage, support, évolutions. <b>Périmètre et niveau de service (SLA, délais, heures couvertes) à définir par contrat</b> — les montants ci-dessous sont des ordres de grandeur de départ, pas un engagement.</p>
+        <div class="calc priceable">
+          <div class="row"><span>PME</span><b>690 €/mois</b></div>
+          <div class="row"><span>ETI</span><b>1 900 €/mois</b></div>
+          <div class="row"><span>Grand compte</span><b>3 900–5 900 €/mois</b></div>
+          <div class="hr"></div>
+          <div class="row" style="font-size:12px"><span>Le run ≠ la consommation</span><span>payée en direct, prix coûtant</span></div>
+        </div>
+      </div>
+      <div class="ddc">
+        <span class="tg">Inférence locale · la Box IA</span>
+        <h3>Un matériel que je possède, que je loue.</h3>
+        <p>Une machine basse consommation (~65–120 W) qui fait tourner les modèles <b>sur site</b> — jusqu'aux modèles 70B et MoE 120B. Elle reste <b>ma propriété</b>, installée dans les locaux du client, louée maintenance incluse. Le client garde la souveraineté des données sans immobiliser de capital.</p>
+        <div class="calc priceable">
+          <div class="row"><span>Box IA 64 Go — loyer tout compris</span><b>350–450 €/mois</b></div>
+          <div class="row"><span>Box IA 128 Go — loyer tout compris</span><b>490–690 €/mois</b></div>
+          <div class="hr"></div>
+          <div class="row" style="font-size:12px"><span>vs GPU cloud équivalent</span><span>900–2 500 €/mois</span></div>
+        </div>
+        <p style="margin-top:11px;font-size:11.5px">Réserve assumée : ~5 tok/s sur un 70B dense, mais <b>30–50 tok/s en MoE</b>. Parfait en concurrence modérée / RAG / batch ; pour du temps réel massif, on met plusieurs box ou on passe GPU.</p>
+      </div>
+      <div class="ddc">
+        <span class="tg">FinOps · l'inconnue</span>
+        <h3>Ils ignorent leur conso ?</h3>
+        <p>Le coût <b>actuel</b> ne se mesure pas techniquement (rien ne transite encore par nos outils) : il se <b>reconstitue à l'audit</b> — licences, factures fournisseurs, notes de frais, shadow IA. La mesure fine ne démarre qu'<b>après</b> migration sur le chatbot interne.</p>
+        <div class="calc priceable">
+          <div class="row"><span>Baseline actuelle</span><b>livrable audit</b></div>
+          <div class="row"><span>Conso réelle post-migration</span><b>mesurée en continu</b></div>
+          <div class="hr"></div>
+          <div class="row"><span>Gain-share = écart mesuré</span><b>25–30 %</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI -->
+<section id="roi" class="band">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">L'argument ROI</span>
+      <h2>Licences vs plateforme souveraine.</h2>
+      <p>L'ordre de grandeur qui déclenche la décision — à affiner par l'audit, jamais avant.</p>
+    </div>
+    <div class="roi rv">
+      <div>
+        <table class="tbl priceable">
+          <thead><tr><th>Scénario · 200 utilisateurs</th><th style="text-align:right">Coût annuel indicatif</th></tr></thead>
+          <tbody>
+            <tr><td>Licences IA grand public (≈ 20 €/siège)</td><td class="n">≈ 48 000 €</td></tr>
+            <tr><td>Licences « Enterprise » (≈ 50–60 $/siège)</td><td class="n">≈ 120–140 k€</td></tr>
+            <tr class="win"><td>Plateforme souveraine, à la consommation*</td><td class="n">−30 à −60 %</td></tr>
+          </tbody>
+        </table>
+        <p class="roi__note">*Selon l'usage réel. Honnêtement : sur de très gros volumes par requête, la consommation peut coûter plus cher qu'un forfait — c'est exactement pourquoi l'audit puis le FinOps dé-risquent la bascule avant tout engagement. En local souverain, la logique change encore : plus de coût par requête, un <b>loyer matériel fixe</b> — souvent imbattable dès quelques dizaines d'utilisateurs. Ordres de grandeur été 2026, à confirmer au moment de l'offre.</p>
+      </div>
+      <div class="levbox">
+        <h4>Les leviers d'économie</h4>
+        <p>Selon le mode de déploiement choisi, les leviers changent :</p>
+        <div class="levrow"><span>Cache (entrée réutilisée, mode API)</span><b>−90 %</b></div>
+        <div class="levrow"><span>Traitement différé (mode API)</span><b>−50 %</b></div>
+        <div class="levrow"><span>Routage bon modèle / bon coût</span><b>variable</b></div>
+        <div class="levrow"><span>En local : loyer fixe, conso illimitée</span><b>autre logique</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CABINET -->
+<section id="cabinet">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Le modèle avec Wekey</span>
+      <h2>Ce que ça vous rapporte.</h2>
+      <p><b>Wekey est déjà chez ces clients</b> — assurance, mutuelle, banque — avec la relation de confiance et la force de prescription. Votre rôle : ouvrir la porte et porter l'offre. Le mien : cadrer et livrer. Tout est chiffré <b>au forfait projet</b>, pas en régie.</p>
+    </div>
+    <div class="cab rv">
+      <div class="cabc feat">
+        <h3><span class="pin">Option A</span> Sous-traitance au forfait</h3>
+        <p>Wekey porte le contrat chez son client et applique sa marge <b>en sus</b> de mon forfait. La relation contractuelle et la facturation restent chez Wekey.</p>
+        <div class="rows">
+          <div class="cr"><span>Marge Wekey (ajoutée au forfait)</span><span class="v priceable">10–15 %</span></div>
+          <div class="cr"><span>Facturation client</span><span class="v">au forfait projet</span></div>
+          <div class="cr"><span>Portage &amp; garantie</span><span class="v">Wekey</span></div>
+        </div>
+      </div>
+      <div class="cabc">
+        <h3><span class="pin" style="background:var(--butter)">Option B</span> Apport d'affaires / prescription</h3>
+        <p>Wekey ouvre la porte et prescrit ; je contracte en direct et reverse une commission d'apport. Zéro portage pour Wekey, revenu sans engagement de moyens.</p>
+        <div class="rows">
+          <div class="cr"><span>Commission d'apport</span><span class="v priceable">10–15 % du CA projet</span></div>
+          <div class="cr"><span>Marque</span><span class="v">Co-brandée</span></div>
+          <div class="cr"><span>Récurrent (run + comité)</span><span class="v">Commission récurrente</span></div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12.5px;color:var(--ink-soft);margin-top:14px">Les deux options peuvent coexister selon le compte : sous-traitance sur les clients où Wekey a un contrat-cadre, apport d'affaires ailleurs. Les forfaits sont dimensionnés en interne (jours × TJM + risque) — le client ne voit que des prix projet.</p>
+    <div class="rv" style="margin-top:30px">
+      <span class="eyebrow">Là où l'offre colle à votre implantation</span>
+      <div class="geo">
+        <div class="gc"><div class="c">Niort</div><div class="s">Assurance · mutuelles</div><p>Régulé, souveraineté ++, ACPR.</p></div>
+        <div class="gc"><div class="c">Poitiers</div><div class="s">Public · assurance</div><p>Conformité RGPD au premier plan.</p></div>
+        <div class="gc"><div class="c">Nantes</div><div class="s">ETI · tech</div><p>Industrie, scale-ups, agents.</p></div>
+        <div class="gc"><div class="c">Bordeaux</div><div class="s">ETI · industrie</div><p>Modernisation, FinOps.</p></div>
+        <div class="gc"><div class="c">Brest</div><div class="s">Public · maritime</div><p>Souveraineté, secteur public.</p></div>
+        <div class="gc"><div class="c">Paris</div><div class="s">Grands comptes</div><p>Volume, conformité maximale.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRILLE -->
+<section id="grille" class="band">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Récapitulatif</span>
+      <h2>La grille complète.</h2>
+      <p>Prix indicatifs HT, à ajuster selon le périmètre issu de l'audit. Masquables en un clic pour la version client.</p>
+    </div>
+    <div class="grille-scroll rv">
+      <table class="grille priceable">
+        <thead><tr><th>Brique</th><th style="text-align:right">PME</th><th style="text-align:right">ETI</th><th style="text-align:right">Grand compte</th></tr></thead>
+        <tbody>
+          <tr class="ph"><td colspan="4">Socle</td></tr>
+          <tr><td>Audit IA 360°<span class="sub">forfait selon périmètre</span></td><td class="s">2 900 €</td><td class="s">7 500 €</td><td class="s">18–30 k€</td></tr>
+          <tr class="ph"><td colspan="4">Phase 1 — Comprendre &amp; former</td></tr>
+          <tr><td>M2 · Formation<span class="sub">parcours type · sessions à 1 500–2 400 €/j</span></td><td class="s">4 500 €</td><td class="s">6 900 €</td><td class="s">9 500 €</td></tr>
+          <tr class="ph"><td colspan="4">Phase 2 — Piloter (en parallèle)</td></tr>
+          <tr><td>M3 · FinOps IA<span class="sub">récurrent : ou gain-share 25–30 %</span></td>
+            <td class="s">3 800 €<span class="sub r">900 €/mois</span></td>
+            <td class="s">4 200 €<span class="sub r">1 800 €/mois</span></td>
+            <td class="s">5 000 €<span class="sub r">2 800 €/mois</span></td></tr>
+          <tr><td>M4 · Gouvernance &amp; sécurité<span class="sub">charte · registre · comité trimestriel</span></td>
+            <td class="s">6 000 €<span class="sub r">1 500 €/trim.</span></td>
+            <td class="s">8 000 €<span class="sub r">1 500 €/trim.</span></td>
+            <td class="s">12 000 €<span class="sub r">1 500 €/trim.</span></td></tr>
+          <tr class="ph"><td colspan="4">Phase 3 — Déployer (au choix, selon audit)</td></tr>
+          <tr><td>M5 · Chatbot IA interne<span class="sub">portail multi-modèles sur vos serveurs</span></td>
+            <td class="s">7 500 €<span class="sub r">690 €/mois</span></td>
+            <td class="s">15 000 €<span class="sub r">1 900 €/mois</span></td>
+            <td class="s">28 000 €<span class="sub r">4 900 €/mois</span></td></tr>
+          <tr><td>M6 · Assistant sur vos documents<span class="sub">extension du chatbot</span></td>
+            <td class="s">6 000 €<span class="sub r">+300 €/mois</span></td>
+            <td class="s">10 000 €<span class="sub r">+600 €/mois</span></td>
+            <td class="s">14 000 €<span class="sub r">+900 €/mois</span></td></tr>
+          <tr><td>M7 · Box IA — inférence locale<span class="sub">intégration · loyer selon taille (64/128 Go)</span></td>
+            <td class="s">4 000 €<span class="sub r">350–450 €/mois</span></td>
+            <td class="s">6 500 €<span class="sub r">490–690 €/mois</span></td>
+            <td class="s">9 000 €<span class="sub r">selon parc</span></td></tr>
+          <tr class="ph"><td colspan="4">Fil rouge — Transformer (sur devis)</td></tr>
+          <tr><td>M8 · Agents IA<span class="sub">après chatbot &amp; assistant documentaire</span></td><td class="s" colspan="3" style="text-align:center">Sur devis — périmètre cadré après audit</td></tr>
+          <tr><td>M9 · Automatisation &amp; process<span class="sub">revoir, changer, automatiser</span></td><td class="s" colspan="3" style="text-align:center">Sur devis — chantier par chantier</td></tr>
+          <tr><td>M10 · Internalisation de licences<span class="sub">une licence à la fois</span></td><td class="s" colspan="3" style="text-align:center">Sur devis — après cartographie</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--ink-soft);margin-top:14px">Prix de mise en place en noir, récurrent en doré. Consommation API payée en direct par le client, à prix coûtant — le consultant ne marge que le build et le run. Forfaits dimensionnés en interne sur base TJM 600–900 €/j selon compte.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap rv">
+    <h2>On déroule un premier compte ?</h2>
+    <p>Un audit pilote sur un client cible — celui qui prouve le modèle et ouvre tout le reste.</p>
+    <a class="btn" href="#parcours">Composer un parcours →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot__in">
+    <div class="logo"><span class="we">We</span><span class="key">key</span><span class="x">×</span><span class="pv">[Marque]</span></div>
+    <p>Document de travail confidentiel — proposition commerciale co-brandée. Prix HT indicatifs (été 2026), non contractuels. Architectures et choix techniques : propriété du consultant, détaillés en phase projet.</p>
+  </div>
+</footer>
+
+<!-- STICKY SUMMARY -->
+<div class="summary">
+  <div class="summary__in">
+    <div class="summary__path" id="sumPath"></div>
+    <div class="summary__tot">
+      <div class="stot"><div class="l">Mise en place</div><div class="v priceable" id="sumSetup">—</div></div>
+      <div class="stot"><div class="l">Récurrent</div><div class="v priceable" id="sumRun">—</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const PHASES = [
+  {label:'Phase 1', title:'Comprendre & former', note:'juste après l\u2019audit', ids:['m2']},
+  {label:'Phase 2', title:'Piloter', note:'en parallèle', ids:['m3','m4']},
+  {label:'Phase 3', title:'Déployer', note:'au choix selon audit — séquence ou simultané, à définir ensemble', ids:['m5','m6','m7']},
+  {label:'Fil rouge', title:'Transformer', note:'sur devis, tout au long du parcours', ids:['m8','m9','m10'], fil:true},
+];
+
+const MODULES = [
+  { id:'m2', code:'M2', name:'Formation & conformité',
+    desc:"Catalogue de 8 sessions, du COMEX aux équipes (voir plus bas). La session socle répond à l'AI Act art. 4.",
+    setup:{pme:4500,eti:6900,gc:9500}, run:{pme:0,eti:0,gc:0}, requires:[],
+    rel:{proprietaire:'reco',souverain:'reco',hybride:'reco'},
+    why:{all:"Calibrée par l'audit : chaque population reçoit le bon niveau. <b>Conformité + adoption</b> — condition de réussite de tout le reste."} },
+
+  { id:'m3', code:'M3', name:'FinOps IA',
+    desc:"Baseline issue de l'audit, puis optimisation continue de la dépense IA. Reporting par équipe.",
+    setup:{pme:3800,eti:4200,gc:5000}, run:{pme:900,eti:1800,gc:2800}, requires:[],
+    rel:{proprietaire:'reco',souverain:'reco',hybride:'reco'},
+    why:{ proprietaire:"Leviers actifs : <b>cache (−90 %)</b>, <b>traitement différé (−50 %)</b>, routage du bon modèle.",
+          souverain:"En local, cache & traitement différé <b>ne s'appliquent pas</b> — le FinOps porte sur le dimensionnement matériel et l'optimisation des modèles.",
+          hybride:"Cache & différé sur la <b>part API</b> ; dimensionnement matériel sur la <b>part locale</b>." },
+    levers:{ proprietaire:[['Cache −90 %',1],['Différé −50 %',1],['Routage',1],['Optim. modèles',0]],
+             souverain:[['Cache −90 %',0],['Différé −50 %',0],['Routage local',1],['Optim. modèles',1],['Dimensionnement',1]],
+             hybride:[['Cache −90 %',1],['Différé −50 %',1],['Routage',1],['Optim. modèles',1]] } },
+
+  { id:'m4', code:'M4', name:'Gouvernance & sécurité',
+    desc:"Charte IA, registre des usages, classification AI Act, protection des échanges, tests de robustesse.",
+    setup:{pme:6000,eti:8000,gc:12000}, run:{pme:500,eti:500,gc:500}, requires:[],
+    rel:{proprietaire:'reco',souverain:'reco',hybride:'reco'},
+    why:{all:"Indispensable en <b>assurance / mutuelle</b> (ACPR). Se mène en parallèle du FinOps, dès la fin de l'audit."},
+    runLabel:'1 500 €/trim.' },
+
+  { id:'m5', code:'M5', name:'Chatbot IA interne',
+    desc:"Un portail unique multi-modèles — routage, SSO, journalisation, protection des données — déployé sur vos serveurs. Remplace les licences individuelles.",
+    setup:{pme:7500,eti:15000,gc:28000}, run:{pme:690,eti:1900,gc:4900}, requires:[],
+    rel:{proprietaire:'reco',souverain:'reco',hybride:'reco'},
+    why:{ proprietaire:"Point d'accès unique aux modèles du marché — journalisation, contrôle, <b>une facture pilotable</b> au lieu de N licences.",
+          souverain:"Même chatbot, branché sur vos <b>modèles locaux</b> (active l'inférence locale).",
+          hybride:"Le <b>routage</b> garde le sensible en local et envoie le reste vers les API." } },
+
+  { id:'m6', code:'M6', name:'Assistant sur vos documents',
+    desc:"La plateforme branchée sur votre documentation interne, avec contrôle des accès. Les réponses citent vos sources.",
+    setup:{pme:6000,eti:10000,gc:14000}, run:{pme:300,eti:600,gc:900}, requires:['m5'],
+    rel:{proprietaire:'opt',souverain:'opt',hybride:'opt'},
+    why:{all:"Vos documents internes en réponse, <b>en privé</b>. Faible coût marginal une fois le chatbot posé."} },
+
+  { id:'m7', code:'M7', name:'Box IA — inférence locale',
+    desc:"Machine d'inférence basse consommation, ma propriété, installée dans vos locaux, louée service inclus. Deux tailles (64 / 128 Go).",
+    setup:{pme:4000,eti:6500,gc:9000}, run:{pme:350,eti:490,gc:690}, requires:[],
+    rel:{proprietaire:'low',souverain:'reco',hybride:'reco'},
+    why:{ proprietaire:"<b>Peu pertinent ici</b> : vous restez sur API. À activer si une donnée doit rester sur site.",
+          souverain:"<b>Cœur du dispositif</b> : les modèles tournent chez vous, aucun capital immobilisé — la Box IA reste ma propriété, louée avec service.",
+          hybride:"Héberge la <b>part sensible</b> ; le reste passe en API." },
+    runLabel2:'+ loyer Box IA' },
+
+  { id:'m8', code:'M8', name:'Agents IA',
+    desc:"Des agents qui agissent dans vos process : tri de mails, reporting, extraction de documents, préparation de dossiers.",
+    quote:true, requires:['m5'],
+    rel:{proprietaire:'opt',souverain:'opt',hybride:'opt'},
+    why:{all:"Se construit sur le chatbot et l'assistant documentaire. Un périmètre = un devis. Le sujet différenciant 2026."} },
+
+  { id:'m9', code:'M9', name:'Automatisation & process',
+    desc:"Revoir les process existants, les simplifier, puis les automatiser — scripts, flux, IA là où elle apporte.",
+    quote:true, requires:[],
+    rel:{proprietaire:'opt',souverain:'opt',hybride:'opt'},
+    why:{all:"Du <b>process change</b> outillé, pas de l'IA plaquée sur de mauvais process. Chantier par chantier, sur devis."} },
+
+  { id:'m10', code:'M10', name:'Internalisation de licences',
+    desc:"Auditer le parc de licences coûteuses, cibler la plus rentable à redévelopper, l'internaliser — une à la fois.",
+    quote:true, requires:[],
+    rel:{proprietaire:'opt',souverain:'opt',hybride:'opt'},
+    why:{all:"Remplace de l'abonnement récurrent par un <b>outil possédé</b>. Règle : ROI &lt; 18–24 mois et cœur de métier ou donnée sensible. Sinon on garde la licence."} },
+];
+
+const AUDIT = {setup:{pme:2900,eti:7500,gc:24000}};
+const FORK_HINT = {
+  proprietaire:"Mode <b>API propriétaire</b> : vous consommez les modèles du marché via notre routage — y compris une <b>API européenne (Mistral)</b> pour un premier niveau de souveraineté sans infra. Cache et traitement différé sont vos meilleurs leviers d'économie.",
+  souverain:"Mode <b>local souverain</b> : les modèles tournent sur une Box IA chez vous. Les données ne sortent jamais — mais les leviers d'économie API n'ont plus de sens, le FinOps change de nature.",
+  hybride:"Mode <b>hybride</b> : le routage garde le sensible en local et envoie le reste en API. Le meilleur des deux mondes, à piloter finement."
+};
+const BADGE = {reco:['badge--reco','Recommandé'], opt:['badge--opt','Optionnel'], low:['badge--low','Peu pertinent']};
+
+let size='eti', fork='proprietaire';
+let selected = new Set(['m2','m3','m4','m5']);
+
+const fmt = n => n.toLocaleString('fr-FR')+' €';
+const hidden = () => document.body.classList.contains('no-prices');
+const modsEl = document.getElementById('mods');
+
+function toggle(id){
+  const m = MODULES.find(x=>x.id===id);
+  if(selected.has(id)){
+    selected.delete(id);
+    MODULES.forEach(x=>{ if(x.requires.includes(id)) selected.delete(x.id); });
+  } else {
+    selected.add(id);
+    m.requires.forEach(r=>selected.add(r));
+  }
+  render();
+}
+
+function modCard(m){
+  const on = selected.has(m.id);
+  const rel = m.rel[fork];
+  const [bcls,btxt] = BADGE[rel];
+  const why = (m.why[fork]||m.why.all);
+  const depNames = m.requires.map(r=>r.toUpperCase()).join(', ');
+  const dep = m.requires.length ? `↳ Nécessite ${depNames}` : '';
+  let priceHTML;
+  if(m.quote){
+    priceHTML = `<div class="pcol"><span class="p-lbl">Chiffrage</span><span class="p-val">Sur devis</span></div>
+                 <div class="pcol"><span class="p-lbl">Périmètre</span><span class="p-val run" style="font-size:13px">cadré après audit</span></div>`;
+  } else {
+    const runVal = m.runLabel ? m.runLabel : (m.run[size]>0 ? fmt(m.run[size])+' <small>/mois</small>' : '—');
+    const extra = m.runLabel2 ? `<span style="font-size:10.5px;color:var(--ink-soft);font-weight:600">${m.runLabel2}</span>` : '';
+    priceHTML = `<div class="pcol priceable"><span class="p-lbl">Mise en place</span><span class="p-val">${fmt(m.setup[size])}</span></div>
+                 <div class="pcol priceable"><span class="p-lbl">Récurrent</span><span class="p-val run">${runVal}</span>${extra}</div>`;
+  }
+  let leversHTML='';
+  if(m.levers){
+    leversHTML = '<div class="levers">'+m.levers[fork].map(([t,active])=>`<span class="lever ${active?'':'off'}">${t}</span>`).join('')+'</div>';
+  }
+  return `<div class="mod ${on?'on':''} ${rel==='low'?'dim':''}" data-id="${m.id}" role="button" tabindex="0" aria-pressed="${on}">
+    <div class="mod__top">
+      <span class="mod__code">${m.code}</span>
+      <span class="mod__name">${m.name}</span>
+      <span class="badge ${bcls}">${btxt}</span>
+    </div>
+    <div class="mod__desc">${m.desc}</div>
+    <div class="mod__why">${why}</div>
+    ${dep?`<div class="mod__dep">${dep}</div>`:''}
+    ${leversHTML}
+    <div class="mod__foot">
+      <div class="mod__prices">${priceHTML}</div>
+      <div class="pick" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+    </div>
+  </div>`;
+}
+
+function render(){
+  document.getElementById('auditPrice').textContent = fmt(AUDIT.setup[size]);
+  document.getElementById('forkHint').innerHTML = FORK_HINT[fork];
+
+  modsEl.innerHTML = PHASES.map(ph=>{
+    const head = `<div class="phase"><span class="ph-n ${ph.fil?'fil':''}">${ph.label}</span><h3>${ph.title}</h3><small>· ${ph.note}</small><span class="ph-line"></span></div>`;
+    const cards = ph.ids.map(id=>modCard(MODULES.find(m=>m.id===id))).join('');
+    return head+cards;
+  }).join('');
+
+  document.getElementById('gpuNote').classList.toggle('show', selected.has('m7'));
+
+  let setup = AUDIT.setup[size], run = 0, hasQuote=false;
+  const path = ['Audit'];
+  MODULES.forEach(m=>{ if(selected.has(m.id)){
+    if(m.quote){ hasQuote=true; } else { setup+=m.setup[size]; run+=m.run[size]; }
+    path.push(m.code);
+  }});
+  const qs = hasQuote ? ' <span class="plus">+ devis</span>' : '';
+  document.getElementById('sumSetup').innerHTML = hidden()? '•••' : fmt(setup)+qs;
+  document.getElementById('sumRun').innerHTML   = hidden()? '•••' : fmt(run)+' <span class="plus">/mois</span>'+qs;
+  const names = {pme:'PME',eti:'ETI',gc:'Grand compte'};
+  const forks = {proprietaire:'API propriétaire',souverain:'local souverain',hybride:'hybride'};
+  document.getElementById('sumPath').innerHTML =
+    `<b>${names[size]} · ${forks[fork]}</b> — parcours : ${path.map(p=>`<b>${p}</b>`).join(' → ')}`;
+}
+
+document.getElementById('segSize').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  size=b.dataset.size; [...e.currentTarget.children].forEach(x=>x.classList.toggle('on',x===b)); render();});
+document.getElementById('segFork').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;
+  fork=b.dataset.fork; [...e.currentTarget.children].forEach(x=>x.classList.toggle('on',x===b)); render();});
+modsEl.addEventListener('click',e=>{const c=e.target.closest('.mod');if(c)toggle(c.dataset.id);});
+modsEl.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){const c=e.target.closest('.mod');if(c){e.preventDefault();toggle(c.dataset.id);}}});
+
+const tbtn=document.getElementById('priceToggle');
+tbtn.addEventListener('click',()=>{const on=document.body.classList.toggle('no-prices');
+  tbtn.setAttribute('aria-pressed',on?'true':'false'); tbtn.textContent=on?'Afficher les prix':'Masquer les prix'; render();});
+
+const io=new IntersectionObserver((es)=>{es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+render();
+</script>
+</body>
+</html>

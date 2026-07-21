@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wekey × [Marque] — FinOps IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#F5B531; --yellow-deep:#E39F16;
+    --butter:#FBE18A; --butter-lt:#FDEEBF;
+    --ink:#2E3842; --ink-soft:#586470;
+    --paper:#FFFFFF; --paper-2:#FBF9F4;
+    --line:#EAE6DC; --grey:#9AA1A9; --grey-bg:#EEECE5; --green:#4E7A4E;
+    --maxw:1080px; --gutter:clamp(18px,5vw,60px); --r:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+  h1,h2,h3,h4{font-family:"Poppins",sans-serif;font-weight:700;line-height:1.08;letter-spacing:-.015em;color:var(--ink)}
+  a{color:inherit}
+  .eyebrow{font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow-deep)}
+  .btn{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;font-weight:700;font-size:14.5px;padding:14px 24px;border-radius:999px;text-decoration:none;border:none;cursor:pointer;transition:.18s}
+  .btn:hover{background:var(--yellow);color:var(--ink)}
+  .btn--ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+  .btn--ghost:hover{background:var(--ink);color:#fff}
+
+  body.no-prices .priceable{visibility:hidden}
+
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar__in{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px}
+  .logo{font-family:"Poppins";font-weight:800;font-size:23px;letter-spacing:-.03em}
+  .logo .we{color:var(--yellow)} .logo .key{color:var(--ink)}
+  .logo .x{color:var(--ink-soft);font-weight:600;font-size:15px;margin:0 6px}
+  .nav{display:flex;align-items:center;gap:18px}
+  .nav a{font-size:13.5px;font-weight:600;color:var(--ink-soft);text-decoration:none}
+  .nav a:hover{color:var(--ink)}
+  .nav a.back{background:var(--butter);border:1.5px solid var(--yellow);color:var(--ink);padding:8px 14px;border-radius:999px;font-size:12px;font-weight:700}
+  .toggle{font-size:12px;font-weight:700;background:var(--butter);border:1.5px solid var(--yellow);color:var(--ink);padding:8px 14px;border-radius:999px;cursor:pointer;transition:.18s}
+  .toggle[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  @media(max-width:860px){.nav a:not(.back){display:none}}
+
+  .hero{padding:clamp(46px,7vw,88px) 0 clamp(30px,4vw,52px)}
+  .hero__grid{display:grid;grid-template-columns:1.2fr .8fr;gap:44px;align-items:center}
+  .hero .eyebrow{display:inline-block;margin-bottom:18px}
+  .hero h1{font-size:clamp(33px,5.6vw,60px);font-weight:800;max-width:16ch}
+  .hero h1 .hl{background:linear-gradient(180deg,transparent 62%,var(--butter) 62%);padding:0 .06em}
+  .hero p{margin-top:20px;font-size:clamp(16px,1.8vw,19px);color:var(--ink-soft);max-width:52ch}
+  .hero p b{color:var(--ink)}
+  .hero__cta{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
+  .gauge{position:relative;background:var(--butter);border-radius:var(--r);padding:26px 26px;box-shadow:9px 9px 0 var(--yellow)}
+  .gauge h4{font-size:14px;margin-bottom:16px}
+  .gbar{height:34px;border-radius:9px;background:#fff;overflow:hidden;position:relative;border:1.5px solid rgba(46,56,66,.15)}
+  .gbar .fill{position:absolute;left:0;top:0;bottom:0;background:var(--ink);display:flex;align-items:center;padding-left:12px;color:#fff;font-weight:800;font-size:13px;font-family:"Poppins"}
+  .gauge .lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);font-weight:600;margin-top:8px}
+  .gauge .after{margin-top:14px}
+  .gbar.opt .fill{background:var(--green);width:52%}
+  .gbar.base .fill{width:100%;background:var(--ink)}
+  .gauge .save{margin-top:14px;font-family:"Poppins";font-weight:800;font-size:15px;color:var(--yellow-deep);text-align:center}
+  @media(max-width:820px){.hero__grid{grid-template-columns:1fr;gap:32px}.gauge{box-shadow:7px 7px 0 var(--yellow)}}
+
+  section{padding:clamp(46px,6vw,82px) 0}
+  .band{background:var(--paper-2)}
+  .sec-head{margin-bottom:clamp(26px,4vw,44px);max-width:64ch}
+  .sec-head .eyebrow{display:block;margin-bottom:12px}
+  .sec-head h2{font-size:clamp(25px,3.7vw,42px);font-weight:800}
+  .sec-head p{margin-top:12px;color:var(--ink-soft);font-size:15.5px}
+  .sec-head p b{color:var(--ink)}
+
+  .probs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .prob{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:24px 22px}
+  .prob .ic{width:42px;height:42px;border-radius:11px;background:var(--ink);color:var(--butter);display:grid;place-items:center;font-family:"Poppins";font-weight:800;font-size:20px;margin-bottom:12px}
+  .prob h4{font-size:16px;margin-bottom:7px}
+  .prob p{font-size:13.5px;color:var(--ink-soft)}
+  @media(max-width:760px){.probs{grid-template-columns:1fr}}
+
+  /* steps */
+  .steps{display:flex;flex-direction:column;gap:14px}
+  .step{display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:22px 26px}
+  .step .no{font-family:"Poppins";font-weight:800;font-size:26px;color:var(--yellow-deep);width:52px;height:52px;border-radius:13px;background:var(--butter);display:grid;place-items:center}
+  .step__body h3{font-size:19px;margin-bottom:4px}
+  .step__body p{font-size:13.5px;color:var(--ink-soft)}
+  .step__body .del{margin-top:8px;font-size:12px;color:var(--ink);display:flex;flex-wrap:wrap;gap:6px}
+  .step__body .del span{background:var(--paper-2);border:1px solid var(--line);border-radius:7px;padding:3px 9px;font-weight:600}
+  .step .when{font-family:"Poppins";font-weight:800;font-size:13px;color:var(--ink);background:var(--butter-lt);padding:7px 12px;border-radius:999px;white-space:nowrap}
+  @media(max-width:720px){.step{grid-template-columns:auto 1fr;gap:16px}.step .when{grid-column:2;justify-self:start;margin-top:4px}}
+
+  /* levers */
+  .lev{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .levc{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:24px 24px}
+  .levc.api{background:var(--butter)}
+  .levc h3{font-size:17px;margin-bottom:4px;display:flex;align-items:center;gap:9px}
+  .levc .sub{font-size:12px;font-weight:700;color:var(--ink-soft);margin-bottom:14px}
+  .levrow{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dashed rgba(46,56,66,.18);font-size:13.5px;font-weight:600}
+  .levc.api .levrow{border-bottom-color:rgba(46,56,66,.2)}
+  .levrow:last-child{border-bottom:none}
+  .levrow b{color:var(--yellow-deep);font-weight:800;white-space:nowrap}
+  .levc.local .levrow b{color:var(--green)}
+  @media(max-width:700px){.lev{grid-template-columns:1fr}}
+
+  /* pricing */
+  .plans{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .plan{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:28px 26px;display:flex;flex-direction:column}
+  .plan.feat{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .plan .who{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--yellow-deep)}
+  .plan.feat .who{color:var(--yellow)}
+  .plan h3{font-size:22px;margin:6px 0 12px}
+  .plan.feat h3{color:#fff}
+  .plan .amt{font-family:"Poppins";font-weight:800;font-size:15px;font-variant-numeric:tabular-nums}
+  .plan .line{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .plan.feat .line{border-bottom-color:rgba(255,255,255,.14)}
+  .plan .line:last-of-type{border-bottom:none}
+  .plan .line .k{color:var(--ink-soft)}
+  .plan.feat .line .k{color:#C9CDD2}
+  .plan .line .v{font-weight:800;text-align:right}
+  .plan .gs{margin-top:16px;background:var(--butter);border-radius:12px;padding:14px 16px;font-size:13px}
+  .plan.feat .gs{background:#38434E}
+  .plan .gs b{font-weight:800;color:var(--ink)}
+  .plan.feat .gs b{color:var(--yellow)}
+  .plan .gs .big{font-family:"Poppins";font-weight:800;font-size:20px;color:var(--yellow-deep)}
+  .plan.feat .gs .big{color:var(--yellow)}
+  @media(max-width:760px){.plans{grid-template-columns:1fr}}
+
+  .note{font-size:12.5px;color:var(--ink-soft);margin-top:14px;line-height:1.55}
+  .note b{color:var(--ink)}
+
+  /* why me */
+  .why{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .whyc{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:22px 22px}
+  .whyc h4{font-size:15px;margin-bottom:7px}
+  .whyc p{font-size:13px;color:var(--ink-soft)}
+  @media(max-width:760px){.why{grid-template-columns:1fr}}
+
+  .cta{text-align:center}
+  .cta h2{font-size:clamp(26px,4vw,44px);font-weight:800;max-width:20ch;margin:0 auto 14px}
+  .cta p{color:var(--ink-soft);max-width:54ch;margin:0 auto 24px;font-size:15.5px}
+  footer{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-soft);font-size:12.5px}
+  .foot__in{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+  .foot__in p{max-width:64ch;line-height:1.6}
+
+  .rv{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+  .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar__in">
+    <div class="logo"><span class="we">We</span><span class="key">key</span><span class="x">×</span><span>[Marque]</span></div>
+    <nav class="nav">
+      <a href="#demarche">Démarche</a>
+      <a href="#leviers">Leviers</a>
+      <a href="#tarifs">Formules</a>
+      <a class="back" href="offre-ia-souveraine.html">← L'offre complète</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap hero__grid">
+    <div class="rv">
+      <span class="eyebrow">FinOps IA · maîtrise des coûts</span>
+      <h1>Votre IA coûte combien ? <span class="hl">Personne ne sait.</span></h1>
+      <p>Licences empilées, appels API sans plafond, shadow IA hors radar. Le FinOps IA <b>mesure d'abord, optimise ensuite</b> — et aligne mes intérêts sur les vôtres : je ne me rémunère qu'au service, jamais sur votre consommation.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#tarifs">Voir les formules →</a>
+        <a class="btn btn--ghost" href="#demarche">La démarche</a>
+      </div>
+    </div>
+    <div class="rv gauge">
+      <h4>Ce qu'on observe en général</h4>
+      <div class="gbar base"><div class="fill">Dépense actuelle</div></div>
+      <div class="lbl"><span>Licences + API + shadow IA</span><span>100 %</span></div>
+      <div class="after">
+        <div class="gbar opt"><div class="fill">Après optimisation</div></div>
+        <div class="lbl"><span>Routage · cache · déduplication</span><span>−30 à −60 %</span></div>
+      </div>
+      <div class="save">Économie type : 30 à 60 %</div>
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEME -->
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Le problème</span>
+      <h2>La dépense IA grossit dans l'angle mort.</h2>
+      <p>Contrairement au cloud, l'IA n'a pas encore sa discipline de coûts. Résultat : une facture qui monte sans que personne ne la pilote.</p>
+    </div>
+    <div class="probs rv">
+      <div class="prob"><div class="ic">€</div><h4>Licences sous-utilisées</h4><p>Des sièges payés au prix fort, souvent pour un usage occasionnel. Le coût par utilisateur actif réel est rarement calculé.</p></div>
+      <div class="prob"><div class="ic">~</div><h4>Consommation API sans garde-fou</h4><p>Un même besoin traité par le modèle le plus cher, sans cache ni traitement différé. Le coût par requête varie du simple au décuple.</p></div>
+      <div class="prob"><div class="ic">?</div><h4>Shadow IA invisible</h4><p>Comptes personnels, cartes bancaires, abonnements dispersés dans les équipes. Impossible à optimiser tant que ce n'est pas cartographié.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMARCHE -->
+<section id="demarche">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">La démarche</span>
+      <h2>Quatre étapes. Mesurer avant d'optimiser.</h2>
+      <p>On ne coupe rien à l'aveugle : on établit d'abord la vérité des coûts, puis on agit sur des leviers mesurés.</p>
+    </div>
+    <div class="steps rv">
+      <div class="step">
+        <div class="no">1</div>
+        <div class="step__body">
+          <h3>Audit &amp; baseline actuelle</h3>
+          <p>Reconstituer la dépense IA réelle — car rien ne transite encore par un outil de mesure. On l'assemble depuis les sources existantes.</p>
+          <div class="del"><span>Inventaire licences</span><span>Factures fournisseurs</span><span>Notes de frais / CB</span><span>Cartographie shadow IA</span></div>
+        </div>
+        <div class="when">2–3 semaines</div>
+      </div>
+      <div class="step">
+        <div class="no">2</div>
+        <div class="step__body">
+          <h3>Estimation &amp; scénarios cibles</h3>
+          <p>Modéliser le coût des usages selon le mode de déploiement (API, API souveraine, on-prem cloud, local) et chiffrer le potentiel d'économie, usage par usage.</p>
+          <div class="del"><span>Coût par usage</span><span>Scénarios chiffrés</span><span>Potentiel d'économie</span><span>Business case</span></div>
+        </div>
+        <div class="when">1–2 semaines</div>
+      </div>
+      <div class="step">
+        <div class="no">3</div>
+        <div class="step__body">
+          <h3>Mise en œuvre des leviers</h3>
+          <p>Router le bon modèle au bon moment, activer le cache et le traitement différé, dédupliquer les licences, rapatrier le shadow IA sous contrôle.</p>
+          <div class="del"><span>Routage</span><span>Cache</span><span>Traitement différé</span><span>Déduplication</span></div>
+        </div>
+        <div class="when">3–6 semaines</div>
+      </div>
+      <div class="step">
+        <div class="no">4</div>
+        <div class="step__body">
+          <h3>Pilotage en continu</h3>
+          <p>Mesure fine post-migration, tableau de bord des coûts par équipe et par usage, alertes de dérive, revue périodique. L'économie prouvée, mois après mois.</p>
+          <div class="del"><span>Dashboard coûts</span><span>Reporting par équipe</span><span>Alertes de dérive</span><span>Revue trimestrielle</span></div>
+        </div>
+        <div class="when">récurrent</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEVIERS -->
+<section id="leviers" class="band">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Les leviers</span>
+      <h2>Ils changent selon où tournent les modèles.</h2>
+      <p>Un point clé, souvent mal compris : les leviers d'économie ne sont <b>pas les mêmes</b> en mode API et en mode local. Le FinOps s'adapte au déploiement.</p>
+    </div>
+    <div class="lev rv">
+      <div class="levc api">
+        <h3>En mode API (propriétaire ou souverain)</h3>
+        <div class="sub">Vous payez à la consommation</div>
+        <div class="levrow"><span>Cache sur l'entrée réutilisée</span><b>jusqu'à −90 %</b></div>
+        <div class="levrow"><span>Traitement différé (asynchrone)</span><b>−50 %</b></div>
+        <div class="levrow"><span>Routage vers le bon modèle</span><b>variable, fort</b></div>
+        <div class="levrow"><span>Déduplication des licences</span><b>direct</b></div>
+        <div class="levrow"><span>API européenne (souveraineté)</span><b>sans surcoût infra</b></div>
+      </div>
+      <div class="levc local">
+        <h3>En mode local (Box IA / on-prem cloud)</h3>
+        <div class="sub">Vous payez un coût fixe, pas la requête</div>
+        <div class="levrow"><span>Cache &amp; traitement différé API</span><b>ne s'appliquent pas</b></div>
+        <div class="levrow"><span>Dimensionnement matériel juste</span><b>évite le surcoût</b></div>
+        <div class="levrow"><span>Choix de modèles efficients (MoE)</span><b>débit ×5–10</b></div>
+        <div class="levrow"><span>Quantization / optimisation</span><b>plus de capacité</b></div>
+        <div class="levrow"><span>Loyer fixe, consommation illimitée</span><b>coût prévisible</b></div>
+      </div>
+    </div>
+    <p class="note rv">C'est pourquoi l'estimation (étape 2) précède toute décision : selon le volume et le profil d'usage, le point d'équilibre entre « payer à la requête » et « payer un coût fixe » se déplace. On choisit sur des chiffres, pas sur une intuition.</p>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section id="tarifs">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Les formules</span>
+      <h2>Deux entrées, un principe : je gagne quand vous économisez.</h2>
+      <p>L'audit et la baseline sont toujours le point de départ payant. Ensuite, forfait de pilotage <b>ou</b> intéressement aux économies — au choix.</p>
+    </div>
+    <div class="plans rv">
+      <div class="plan">
+        <div class="who">PME / ETI</div>
+        <h3>FinOps Essentiel</h3>
+        <div class="line"><span class="k">Audit + baseline (étapes 1-2)</span><span class="v amt priceable">3 500–5 000 €</span></div>
+        <div class="line"><span class="k">Mise en œuvre (étape 3)</span><span class="v amt priceable">forfait selon périmètre</span></div>
+        <div class="line"><span class="k">Pilotage mensuel (étape 4)</span><span class="v amt priceable">900–1 800 €/mois</span></div>
+        <div class="gs">
+          <div><span class="big priceable">ou 25 %</span> <b>des économies</b> réalisées la 1<sup>re</sup> année, au lieu du forfait de pilotage. Risque nul : pas d'économie mesurée, pas de facture.</div>
+        </div>
+      </div>
+      <div class="plan feat">
+        <div class="who">Grand compte</div>
+        <h3>FinOps Pilotage</h3>
+        <div class="line"><span class="k">Audit + baseline multi-directions</span><span class="v amt priceable">8 000–15 000 €</span></div>
+        <div class="line"><span class="k">Mise en œuvre &amp; gouvernance coûts</span><span class="v amt priceable">forfait projet</span></div>
+        <div class="line"><span class="k">Pilotage mensuel + dashboard</span><span class="v amt priceable">2 000–2 800 €/mois</span></div>
+        <div class="gs">
+          <div><span class="big priceable">ou 30 %</span> <b>des économies</b> mesurées vs baseline, sur 12 mois. Alignement total : plus vous économisez, plus l'accompagnement se paie de lui-même.</div>
+        </div>
+      </div>
+    </div>
+    <p class="note rv"><b>La consommation reste payée en direct par le client, à prix coûtant</b> — je ne prends aucune marge sur les tokens. C'est ce qui rend le FinOps crédible : je n'ai aucun intérêt à ce que vous consommiez plus. Le gain-share se calcule sur l'écart mesuré entre la baseline (issue de l'audit) et la dépense réelle après optimisation. Montants HT indicatifs, à cadrer par contrat.</p>
+  </div>
+</section>
+
+<!-- POURQUOI -->
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Pourquoi cette approche</span>
+      <h2>Un FinOps sans conflit d'intérêt.</h2>
+    </div>
+    <div class="why rv">
+      <div class="whyc"><h4>Mesurer avant de couper</h4><p>Aucune décision à l'aveugle. On établit la vérité des coûts, puis on agit sur des leviers chiffrés — jamais l'inverse.</p></div>
+      <div class="whyc"><h4>Intérêts alignés</h4><p>Zéro marge sur votre consommation. En gain-share, je ne gagne que si vous économisez vraiment, mesures à l'appui.</p></div>
+      <div class="whyc"><h4>Souveraineté incluse</h4><p>L'optimisation intègre le choix du bon niveau de souveraineté — API européenne, on-prem cloud ou local — sans jamais l'opposer au coût.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap rv">
+    <h2>Commençons par la seule chose qui manque : la vérité des coûts.</h2>
+    <p>Un audit de 2 à 3 semaines suffit à reconstituer votre dépense IA réelle et à chiffrer le potentiel d'économie. Le reste en découle.</p>
+    <a class="btn" href="offre-ia-souveraine.html#parcours">Découvrir l'offre complète →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot__in">
+    <div class="logo"><span class="we">We</span><span class="key">key</span><span class="x">×</span><span>[Marque]</span></div>
+    <p>Document de travail confidentiel — proposition commerciale co-brandée. Montants HT indicatifs (été 2026), non contractuels, à cadrer par contrat. Économies « 30–60 % » : ordre de grandeur constaté, variable selon l'usage réel — l'audit chiffre le potentiel propre à chaque organisation.</p>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

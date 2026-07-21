@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wekey × [Marque] — Décryptage AI Act 2026-2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --yellow:#F5B531; --yellow-deep:#E39F16;
+    --butter:#FBE18A; --butter-lt:#FDEEBF;
+    --ink:#2E3842; --ink-soft:#586470;
+    --paper:#FFFFFF; --paper-2:#FBF9F4;
+    --line:#EAE6DC; --grey:#9AA1A9; --grey-bg:#EEECE5;
+    --green:#4E7A4E;
+    --maxw:1080px; --gutter:clamp(18px,5vw,60px); --r:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:"Inter",system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+  h1,h2,h3,h4{font-family:"Poppins",sans-serif;font-weight:700;line-height:1.08;letter-spacing:-.015em;color:var(--ink)}
+  a{color:inherit}
+  .eyebrow{font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow-deep)}
+  .btn{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;font-weight:700;font-size:14.5px;padding:14px 24px;border-radius:999px;text-decoration:none;border:none;cursor:pointer;transition:.18s}
+  .btn:hover{background:var(--yellow);color:var(--ink)}
+
+  .topbar{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .topbar__in{display:flex;align-items:center;justify-content:space-between;height:62px;gap:16px}
+  .logo{font-family:"Poppins";font-weight:800;font-size:23px;letter-spacing:-.03em}
+  .logo .we{color:var(--yellow)} .logo .key{color:var(--ink)}
+  .logo .x{color:var(--ink-soft);font-weight:600;font-size:15px;margin:0 6px}
+  .logo .pv{color:var(--ink)}
+  .nav a{font-size:13.5px;font-weight:600;color:var(--ink-soft);text-decoration:none;margin-left:20px}
+  .nav a:hover{color:var(--ink)}
+  .nav a.back{background:var(--butter);border:1.5px solid var(--yellow);color:var(--ink);padding:8px 14px;border-radius:999px;font-size:12px;font-weight:700}
+
+  .hero{padding:clamp(46px,7vw,84px) 0 clamp(30px,4vw,50px)}
+  .hero .eyebrow{display:inline-block;margin-bottom:18px}
+  .hero h1{font-size:clamp(32px,5.5vw,58px);font-weight:800;max-width:20ch}
+  .hero h1 .hl{background:linear-gradient(180deg,transparent 62%,var(--butter) 62%);padding:0 .06em}
+  .hero p{margin-top:20px;font-size:clamp(16px,1.8vw,19px);color:var(--ink-soft);max-width:58ch}
+  .hero p b{color:var(--ink)}
+
+  .status{margin-top:28px;background:var(--ink);color:#fff;border-radius:var(--r);padding:22px 26px;display:flex;gap:16px;align-items:flex-start}
+  .status .dot{flex:0 0 12px;height:12px;border-radius:50%;background:var(--yellow);margin-top:6px;box-shadow:0 0 0 4px rgba(245,181,49,.25)}
+  .status h4{color:#fff;font-size:15px;margin-bottom:5px}
+  .status p{color:#D7DBDF;font-size:13.5px;line-height:1.55}
+  .status b{color:var(--yellow)}
+
+  section{padding:clamp(46px,6vw,80px) 0}
+  .band{background:var(--paper-2)}
+  .sec-head{margin-bottom:clamp(26px,4vw,42px);max-width:64ch}
+  .sec-head .eyebrow{display:block;margin-bottom:12px}
+  .sec-head h2{font-size:clamp(25px,3.6vw,40px);font-weight:800}
+  .sec-head p{margin-top:12px;color:var(--ink-soft);font-size:15.5px}
+  .sec-head p b{color:var(--ink)}
+
+  /* timeline */
+  .tl{position:relative;margin-left:10px}
+  .tl::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:2px;background:var(--line)}
+  .tli{position:relative;padding:0 0 26px 44px}
+  .tli:last-child{padding-bottom:0}
+  .tli .pt{position:absolute;left:0;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;border:2.5px solid var(--grey);display:grid;place-items:center;font-size:10px;font-weight:800}
+  .tli.done .pt{background:var(--green);border-color:var(--green);color:#fff}
+  .tli.hot .pt{background:var(--yellow);border-color:var(--yellow);color:var(--ink);box-shadow:0 0 0 5px rgba(245,181,49,.22)}
+  .tli.next .pt{background:#fff;border-color:var(--ink)}
+  .tli .date{font-family:"Poppins";font-weight:800;font-size:15px}
+  .tli.hot .date{color:var(--yellow-deep)}
+  .tli .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-left:8px;vertical-align:2px}
+  .tli.done .tag{background:#E6EFE6;color:var(--green)}
+  .tli.hot .tag{background:var(--butter);color:var(--ink)}
+  .tli.next .tag{background:var(--grey-bg);color:var(--ink-soft)}
+  .tli h4{font-size:15.5px;margin-top:3px}
+  .tli p{font-size:13.5px;color:var(--ink-soft);max-width:66ch;margin-top:3px}
+  .tli p b{color:var(--ink)}
+  .tli .moved{font-size:11.5px;font-weight:700;color:var(--yellow-deep);margin-top:3px}
+
+  /* pyramid */
+  .pyr{display:flex;flex-direction:column;gap:10px;max-width:760px}
+  .pyl{border-radius:12px;padding:16px 20px;display:flex;gap:16px;align-items:baseline;flex-wrap:wrap}
+  .pyl .lv{font-family:"Poppins";font-weight:800;font-size:13px;white-space:nowrap}
+  .pyl p{font-size:13px;flex:1;min-width:240px}
+  .pyl.p1{background:var(--ink);color:#fff;width:52%}
+  .pyl.p1 p{color:#D7DBDF}
+  .pyl.p2{background:var(--yellow);width:68%}
+  .pyl.p3{background:var(--butter);width:84%}
+  .pyl.p4{background:var(--paper-2);border:1.5px solid var(--line);width:100%}
+  @media(max-width:700px){.pyl{width:100% !important}}
+
+  /* concerned grid */
+  .conc{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .concc{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:22px 22px}
+  .concc.hi{background:var(--butter);border-color:var(--yellow)}
+  .concc h4{font-size:16px;margin-bottom:8px}
+  .concc p{font-size:13.5px;color:var(--ink-soft)}
+  .concc p b{color:var(--ink)}
+  .concc ul{list-style:none;margin-top:10px}
+  .concc li{font-size:13px;padding:5px 0 5px 20px;position:relative;color:var(--ink)}
+  .concc li::before{content:"→";position:absolute;left:0;color:var(--yellow-deep);font-weight:800}
+  @media(max-width:760px){.conc{grid-template-columns:1fr}}
+
+  /* sanctions */
+  .sanc{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .sancc{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:22px;text-align:center}
+  .sancc .amt{font-family:"Poppins";font-weight:800;font-size:clamp(22px,3vw,30px);color:var(--ink)}
+  .sancc .pct{font-size:13px;font-weight:700;color:var(--yellow-deep)}
+  .sancc p{font-size:12.5px;color:var(--ink-soft);margin-top:8px}
+  @media(max-width:700px){.sanc{grid-template-columns:1fr}}
+
+  /* offer mapping */
+  .map{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .mapc{background:#fff;border:1.5px solid var(--line);border-radius:var(--r);padding:24px 22px;display:flex;flex-direction:column}
+  .mapc .tg{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--yellow-deep)}
+  .mapc h3{font-size:17px;margin:8px 0 8px}
+  .mapc p{font-size:13px;color:var(--ink-soft)}
+  .mapc ul{list-style:none;margin-top:10px;flex:1}
+  .mapc li{font-size:12.5px;padding:5px 0 5px 18px;position:relative}
+  .mapc li::before{content:"·";position:absolute;left:4px;color:var(--yellow-deep);font-weight:800;font-size:18px;line-height:1}
+  .mapc .mods{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line);font-size:11.5px;font-weight:700;color:var(--ink-soft)}
+  .mapc .mods b{color:var(--ink);background:var(--butter);padding:2px 8px;border-radius:6px;font-family:"Poppins";font-size:11px}
+  @media(max-width:860px){.map{grid-template-columns:1fr}}
+
+  .keybox{background:var(--butter);border-radius:var(--r);padding:24px 26px;box-shadow:8px 8px 0 var(--yellow);max-width:820px;margin-top:26px}
+  .keybox h4{font-size:16px;margin-bottom:8px}
+  .keybox p{font-size:14px}
+  .keybox b{font-weight:800}
+
+  .cta{text-align:center}
+  .cta h2{font-size:clamp(26px,4vw,44px);font-weight:800;max-width:20ch;margin:0 auto 14px}
+  .cta p{color:var(--ink-soft);max-width:54ch;margin:0 auto 24px;font-size:15.5px}
+  footer{border-top:1px solid var(--line);padding:28px 0;color:var(--ink-soft);font-size:12.5px}
+  .foot__in{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+  .foot__in p{max-width:66ch;line-height:1.6}
+
+  .rv{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+  .rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar__in">
+    <div class="logo"><span class="we">We</span><span class="key">key</span><span class="x">×</span><span class="pv">[Marque]</span></div>
+    <nav class="nav">
+      <a href="#calendrier">Calendrier</a>
+      <a href="#risques">Risques</a>
+      <a href="#concernes">Êtes-vous concerné ?</a>
+      <a href="#reponse">Notre réponse</a>
+      <a class="back" href="offre-ia-souveraine.html">← L'offre complète</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow rv">Décryptage réglementaire · juillet 2026</span>
+    <h1 class="rv">AI Act : le calendrier a bougé.<br>Pas les <span class="hl">obligations de 2026.</span></h1>
+    <p class="rv">Le règlement européen sur l'IA (UE 2024/1689) s'applique par paliers depuis 2024. Le paquet « Digital Omnibus », adopté en juin 2026, <b>reporte le gros des obligations « haut risque » à décembre 2027</b> — mais l'obligation de formation est déjà en vigueur, et les sanctions comme les règles de transparence s'activent <b>le 2 août 2026</b>.</p>
+    <div class="status rv">
+      <span class="dot"></span>
+      <div>
+        <h4>Où en est-on ? (au 13 juillet 2026)</h4>
+        <p>Le Digital Omnibus a été adopté par le Parlement européen (16 juin) puis le Conseil (29 juin 2026) ; sa publication au Journal officiel de l'UE est attendue courant juillet, avant l'échéance du 2 août. Le calendrier ci-dessous intègre les nouvelles dates. <b>Tant que la publication n'est pas effective, le calendrier initial fait légalement foi</b> — une raison de plus de ne pas attendre.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- CALENDRIER -->
+<section id="calendrier" class="band">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Les jalons</span>
+      <h2>Ce qui est en vigueur, ce qui arrive.</h2>
+    </div>
+    <div class="tl rv">
+      <div class="tli done"><span class="pt">✓</span>
+        <span class="date">1er août 2024</span><span class="tag">En vigueur</span>
+        <h4>Entrée en vigueur du règlement</h4>
+        <p>Le cadre est posé ; les obligations s'appliquent ensuite par paliers.</p>
+      </div>
+      <div class="tli done"><span class="pt">✓</span>
+        <span class="date">2 février 2025</span><span class="tag">En vigueur</span>
+        <h4>Pratiques interdites + littératie IA (art. 4)</h4>
+        <p>Interdiction des usages à risque inacceptable (notation sociale, manipulation…). Et surtout : <b>toute organisation qui utilise l'IA doit assurer un niveau suffisant de maîtrise de l'IA à son personnel</b>. Cette obligation est active depuis 17 mois — la plupart des entreprises ne l'ont pas traitée.</p>
+      </div>
+      <div class="tli done"><span class="pt">✓</span>
+        <span class="date">2 août 2025</span><span class="tag">En vigueur</span>
+        <h4>Modèles d'IA à usage général (GPAI)</h4>
+        <p>Obligations de transparence et de droit d'auteur pour les fournisseurs de grands modèles. Gouvernance européenne et autorités nationales en place (en France : CNIL, DGCCRF, Arcom).</p>
+      </div>
+      <div class="tli hot"><span class="pt">!</span>
+        <span class="date">2 août 2026</span><span class="tag">Dans 3 semaines</span>
+        <h4>Pouvoirs de sanction + transparence (art. 50)</h4>
+        <p>Les autorités peuvent sanctionner. Les obligations de transparence s'appliquent : <b>informer clairement l'utilisateur qu'il interagit avec une IA</b> (chatbots internes et externes), signaler les contenus générés. Tout chatbot déployé en entreprise est concerné.</p>
+      </div>
+      <div class="tli hot"><span class="pt">!</span>
+        <span class="date">2 nov. – 2 déc. 2026</span><span class="tag">Cette année</span>
+        <h4>Marquage des contenus générés + nouvelles interdictions</h4>
+        <p>Marquage lisible par machine des contenus générés par IA (art. 50§2, échéance Omnibus au 2 novembre 2026, période de grâce jusqu'au 2 décembre pour les systèmes antérieurs). Fin de transition aussi pour la nouvelle interdiction des deepfakes intimes non consentis introduite par l'Omnibus.</p>
+      </div>
+      <div class="tli next"><span class="pt">→</span>
+        <span class="date">2 décembre 2027</span><span class="tag">Jalon majeur</span>
+        <h4>Systèmes à haut risque — Annexe III</h4>
+        <p>RH et recrutement, scoring crédit, <b>tarification assurance vie/santé</b>, biométrie, éducation, infrastructures critiques, justice. Obligations lourdes : documentation, gestion des risques, supervision humaine, journalisation, enregistrement UE, analyse d'impact sur les droits fondamentaux pour certains déployeurs (banque, assurance, secteur public).</p>
+        <p class="moved">↳ Reporté du 2 août 2026 au 2 décembre 2027 par le Digital Omnibus. 17 mois pour se préparer — un chantier de conformité type prend 4 à 7 mois.</p>
+      </div>
+      <div class="tli next"><span class="pt">→</span>
+        <span class="date">2 août 2028</span><span class="tag">Horizon</span>
+        <h4>Haut risque — Annexe I (produits réglementés)</h4>
+        <p>IA intégrée aux produits déjà certifiés CE (dispositifs médicaux, machines…). L'Omnibus allège fortement ce volet : quasi-exemption pour les composants de produits déjà évalués, seule l'obligation d'enregistrement demeure.</p>
+        <p class="moved">↳ Reporté du 2 août 2027 au 2 août 2028.</p>
+      </div>
+      <div class="tli next"><span class="pt">→</span>
+        <span class="date">31 décembre 2030</span><span class="tag">Legacy</span>
+        <h4>Systèmes déployés avant août 2026</h4>
+        <p>Délai supplémentaire pour la mise en conformité des systèmes à haut risque déjà sur le marché avant la date d'application.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISQUES -->
+<section id="risques">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">La logique du texte</span>
+      <h2>Quatre niveaux de risque, des obligations proportionnées.</h2>
+      <p>Le règlement ne s'applique pas à « l'entreprise » mais à <b>chaque système d'IA selon son usage</b> — d'où l'importance de la cartographie.</p>
+    </div>
+    <div class="pyr rv">
+      <div class="pyl p1"><span class="lv">INACCEPTABLE — interdit</span><p>Notation sociale, manipulation, certaines biométries, deepfakes intimes non consentis (Omnibus). Interdits depuis février 2025.</p></div>
+      <div class="pyl p2"><span class="lv">HAUT RISQUE — encadré</span><p>RH/recrutement, crédit, tarification assurance vie/santé, biométrie, éducation, justice… Obligations lourdes à partir de décembre 2027.</p></div>
+      <div class="pyl p3"><span class="lv">RISQUE LIMITÉ — transparence</span><p>Chatbots, contenus générés : informer l'utilisateur, marquer les contenus. Applicable dès août-novembre 2026.</p></div>
+      <div class="pyl p4"><span class="lv">RISQUE MINIMAL — libre</span><p>La grande majorité des usages courants : pas d'obligation spécifique, mais la littératie IA (art. 4) s'applique à tous.</p></div>
+    </div>
+    <div class="sanc rv" style="margin-top:34px">
+      <div class="sancc"><div class="amt">35 M€</div><div class="pct">ou 7 % du CA mondial</div><p>Pratiques interdites</p></div>
+      <div class="sancc"><div class="amt">15 M€</div><div class="pct">ou 3 % du CA mondial</div><p>Non-conformité haut risque</p></div>
+      <div class="sancc"><div class="amt">7,5 M€</div><div class="pct">ou 1 % du CA mondial</div><p>Manquements de transparence / information</p></div>
+    </div>
+    <p style="font-size:12px;color:var(--ink-soft);margin-top:12px" class="rv">Montant le plus élevé retenu ; pour les PME, plafonnement au montant le plus bas. Pouvoirs de sanction actifs à compter du 2 août 2026.</p>
+  </div>
+</section>
+
+<!-- CONCERNÉS -->
+<section id="concernes" class="band">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Êtes-vous concerné ?</span>
+      <h2>Assurance, mutuelle, banque : oui, doublement.</h2>
+      <p>La plupart des entreprises sont <b>déployeurs</b> (elles utilisent l'IA) et non fournisseurs. Mais les secteurs régulés de l'Ouest cumulent les cas Annexe III.</p>
+    </div>
+    <div class="conc rv">
+      <div class="concc hi">
+        <h4>Ce qui vous met en « haut risque » (déc. 2027)</h4>
+        <ul>
+          <li>Tri de CV, présélection, évaluation des collaborateurs (RH)</li>
+          <li>Scoring crédit et solvabilité</li>
+          <li>Tarification et sélection en assurance vie / santé</li>
+          <li>Biométrie (contrôle d'accès, vérification d'identité)</li>
+        </ul>
+        <p style="margin-top:10px">Pour ces usages, banque et assurance font partie des déployeurs privés soumis à l'<b>analyse d'impact sur les droits fondamentaux</b>.</p>
+      </div>
+      <div class="concc">
+        <h4>Ce qui s'applique dès 2025-2026 (tout le monde)</h4>
+        <ul>
+          <li><b>Littératie IA (art. 4)</b> — former le personnel : déjà en vigueur</li>
+          <li>Transparence chatbots — informer l'utilisateur : août 2026</li>
+          <li>Marquage des contenus générés : nov.-déc. 2026</li>
+          <li>Ne pas utiliser de pratiques interdites (y compris via le shadow IA)</li>
+        </ul>
+        <p style="margin-top:10px">Le shadow IA est un angle mort de conformité : impossible d'être conforme sur des usages <b>qu'on ne connaît pas</b>.</p>
+      </div>
+    </div>
+    <div class="keybox rv">
+      <h4>La lecture stratégique du report</h4>
+      <p>Le report à décembre 2027 n'est <b>pas une raison d'attendre</b> : un chantier de conformité haut risque prend 4 à 7 mois pour une organisation moyenne, les obligations 2026 tombent dans trois semaines, et l'obligation de formation court depuis 17 mois. Le report offre exactement une chose : <b>le temps de bien faire</b> — cartographier, former, gouverner — au lieu de subir. C'est la fenêtre dans laquelle s'inscrit cette offre.</p>
+    </div>
+  </div>
+</section>
+
+<!-- REPONSE JINOSY -->
+<section id="reponse">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="eyebrow">Notre réponse</span>
+      <h2>Trois chantiers, adossés aux modules de l'offre.</h2>
+    </div>
+    <div class="map rv">
+      <div class="mapc">
+        <span class="tg">Chantier 1 · dès maintenant</span>
+        <h3>Audit &amp; cartographie AI Act</h3>
+        <p>Savoir où l'on en est — le prérequis de toute conformité.</p>
+        <ul>
+          <li>Inventaire des systèmes d'IA utilisés (y compris shadow IA)</li>
+          <li>Classification par niveau de risque (dont pré-qualification Annexe III)</li>
+          <li>Registre des usages et écarts de conformité (gap analysis)</li>
+          <li>Feuille de route priorisée : 2026 d'abord, 2027 planifié</li>
+        </ul>
+        <div class="mods">Intégré à l'<b>Audit IA 360°</b> · approfondi en <b>M4</b></div>
+      </div>
+      <div class="mapc">
+        <span class="tg">Chantier 2 · obligation déjà active</span>
+        <h3>Formation — littératie IA (art. 4)</h3>
+        <p>L'obligation de maîtrise de l'IA court depuis février 2025.</p>
+        <ul>
+          <li>Session socle « AI Literacy » tous collaborateurs, attestation de suivi</li>
+          <li>Module dirigeants / COMEX : lire le risque, arbitrer</li>
+          <li>Session DPO / juridique / DSI : RGPD &amp; AI Act appliqués</li>
+          <li>Référents IA pour faire vivre la conformité en interne</li>
+        </ul>
+        <div class="mods">Catalogue <b>M2</b> · calibré par l'audit</div>
+      </div>
+      <div class="mapc">
+        <span class="tg">Chantier 3 · en continu</span>
+        <h3>Gouvernance &amp; trajectoire 2027</h3>
+        <p>Transformer la contrainte en cadre de confiance durable.</p>
+        <ul>
+          <li>Charte IA, registre vivant, processus de qualification des nouveaux usages</li>
+          <li>Transparence des chatbots et marquage des contenus (échéances 2026)</li>
+          <li>Préparation haut risque : documentation, supervision humaine, journalisation</li>
+          <li>Comité IA trimestriel : veille réglementaire et arbitrages</li>
+        </ul>
+        <div class="mods">Module <b>M4</b> · comité trimestriel inclus</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta band">
+  <div class="wrap rv">
+    <h2>Par où commencer ? Par savoir où vous en êtes.</h2>
+    <p>L'Audit IA 360° intègre la cartographie AI Act : systèmes, risques, écarts, feuille de route. Le reste en découle.</p>
+    <a class="btn" href="offre-ia-souveraine.html#parcours">Découvrir l'offre complète →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot__in">
+    <div class="logo"><span class="we">We</span><span class="key">key</span><span class="x">×</span><span class="pv">[Marque]</span></div>
+    <p>Décryptage informatif, à jour au 13 juillet 2026 — ne constitue pas un conseil juridique. Calendrier Digital Omnibus sous réserve de publication au Journal officiel de l'UE. Pour les questions d'interprétation juridique, travaillez avec votre conseil habituel ; notre intervention porte sur le volet opérationnel et technique de la mise en conformité.</p>
+  </div>
+</footer>
+
+<script>
+const io=new IntersectionObserver((es)=>{es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}})},{threshold:.1,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
